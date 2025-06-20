@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prix d'une vie – Prévention</title>
+  <style>
+    body {
+      background-color: #111;
+      color: #eee;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      padding: 20px;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    main {
+      max-width: 480px;
+      width: 90%;
+      background: #222;
+      padding: 20px 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px #000;
+    }
+    form {
+      margin-top: 10px;
+    }
+    label {
+      display: block;
+      margin: 12px 0 6px;
+      font-weight: 600;
+      text-align: left;
+      color: #ddd;
+    }
+    input,
+    select,
+    button {
+      width: 100%;
+      padding: 10px 14px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      box-sizing: border-box;
+      transition: background-color 0.3s ease;
+    }
+    input:focus,
+    select:focus,
+    button:focus {
+      background-color: #444;
+      color: #fff;
+    }
+    button {
+      background-color: #4af;
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 18px;
+      user-select: none;
+      border: 2px solid transparent;
+    }
+    button:hover {
+      background-color: #3a8bdc;
+      border-color: #74b3ff;
+    }
+    .result {
+      margin-top: 30px;
+      font-size: 18px;
+      color: #f55;
+      min-height: 180px;
+    }
+    .disclaimer {
+      margin-top: 40px;
+      font-size: 13px;
+      color: #aaa;
+      max-width: 480px;
+      width: 90%;
+      line-height: 1.3;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      margin-top: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #222;
+    }
+    /* Responsive text sizes */
+    @media (max-width: 400px) {
+      body {
+        padding: 15px 10px;
+      }
+      .result {
+        font-size: 16px;
+      }
+      label {
+        font-size: 14px;
+      }
+      input,
+      select,
+      button {
+        font-size: 14px;
+        padding: 8px 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Combien "vaut" une vie ?</h1>
+    <p><strong>Outil de prévention contre le trafic humain et le vol d'identité</strong></p>
+
+    <form id="form">
+      <label for="age">Âge :</label>
+      <input type="number" id="age" min="1" max="120" />
+
+      <label for="gender">Genre :</label>
+      <select id="gender">
+        <option value="male">Homme</option>
+        <option value="female">Femme</option>
+        <option value="other">Autre</option>
+      </select>
+
+      <label for="country">Pays :</label>
+      <select id="country">
+        <option value="fr">France</option>
+        <option value="ng">Nigéria</option>
+        <option value="in">Inde</option>
+        <option value="us">États-Unis</option>
+        <option value="other">Autre</option>
+      </select>
+
+      <label for="health">État de santé :</label>
+      <select id="health">
+        <option value="good">Bon</option>
+        <option value="average">Moyen</option>
+        <option value="poor">Mauvais</option>
+      </select>
+
+      <label for="blood">Groupe sanguin :</label>
+      <select id="blood">
+        <option value="O-">O− (rare)</option>
+        <option value="O+">O+</option>
+        <option value="A+">A+</option>
+        <option value="B+">B+</option>
+        <option value="AB-">AB− (très rare)</option>
+        <option value="AB+">AB+</option>
+      </select>
+
+      <label for="online">Activité numérique :</label>
+      <select id="online">
+        <option value="low">Faible</option>
+        <option value="medium">Moyenne</option>
+        <option value="high">Élevée</option>
+      </select>
+
+      <button type="button" onclick="calculate()">Calculer</button>
+    </form>
+
+    <div class="result" id="result"></div>
+  </main>
+
+  <div class="disclaimer">
+    ⚠️ Ceci est un outil de <strong>sensibilisation</strong>. Les chiffres sont fictifs, basés sur des estimations de
+    marché noir/dark web. <br />
+    Si tu es en danger, contacte
+    <a href="https://www.116000.eu/fr/" style="color: #4af;" target="_blank" rel="noopener noreferrer">116 000</a> ou les autorités locales.
+  </div>
+
+  <script>
+    function calculate() {
+      const age = parseInt(document.getElementById("age").value);
+      const gender = document.getElementById("gender").value;
+      const country = document.getElementById("country").value;
+      const health = document.getElementById("health").value;
+      const blood = document.getElementById("blood").value;
+      const online = document.getElementById("online").value;
+
+      if (!age || age < 1 || age > 120) {
+        alert("Merci de remplir un âge valide.");
+        return;
+      }
+
+      let organBase = 100000;
+      let dataBase = 50;
+
+      if (age < 18) organBase += 30000;
+      else if (age <= 35) organBase += 50000;
+      else if (age > 60) organBase -= 30000;
+
+      if (health === "good") organBase += 20000;
+      if (health === "poor") organBase -= 40000;
+
+      if (blood === "O-" || blood === "AB-") organBase += 30000;
+
+      if (gender === "female") organBase += 20000;
+
+      if (country === "ng" || country === "in") organBase += 10000;
+      if (country === "us") organBase -= 5000;
+
+      if (online === "medium") dataBase += 100;
+      if (online === "high") dataBase += 300;
+      if (country === "fr") dataBase += 100;
+      if (country === "us") dataBase += 150;
+      if (country === "in") dataBase += 30;
+
+      let specialMessage = "";
+      let imageHTML = "";
+      if (Math.random() < 0.1) {
+        organBase = 10;
+        specialMessage = "<p style='color:yellow'>💸 Tu ne vaux même pas plus que le prix d’un grec.</p>";
+        imageHTML = `<img src="kebab.avif" alt="Kebab" />`;
+      }
+
+      const organTotal = Math.max(organBase, 10);
+      const dataTotal = Math.max(dataBase, 10);
+
+      document.getElementById("result").innerHTML = `
+        <p>Valeur estimée de tes organes : <strong>${organTotal.toLocaleString()} €</strong></p>
+        ${specialMessage}
+        <p>Valeur de tes données personnelles : <strong>${dataTotal.toFixed(2)} €</strong></p>
+        ${imageHTML}
+        <p style="margin-top:15px; color:#4af;">Ta vie n’a pas de prix. Protége-la. Protège les autres.</p>
+      `;
+    }
+  </script>
+</body>
+</html>
